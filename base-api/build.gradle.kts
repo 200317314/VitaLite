@@ -20,12 +20,18 @@ repositories {
 dependencies {
     compileOnly("org.projectlombok:lombok:1.18.20")
     annotationProcessor("org.projectlombok:lombok:1.18.20")
-    compileOnly("com.intellij:annotations:12.0")
+    compileOnly("com.intellij:annotations:12.0")          // org.intellij.lang.annotations.MagicConstant :contentReference[oaicite:0]{index=0}
     compileOnly("org.jetbrains:annotations:26.0.2")
+    implementation("io.netty:netty-all:5.0.0.Alpha2")
     implementation("com.google.code.gson:gson:2.8.9")
     compileOnly("com.google.inject:guice:5.1.0")
     implementation("org.apache.commons:commons-configuration2:2.8.0")
     implementation("commons-beanutils:commons-beanutils:1.11.0")
+    implementation(group = "com.fifesoft", name = "rsyntaxtextarea", version = "3.1.2")
+    implementation(group = "com.fifesoft", name = "autocomplete", version = "3.1.1")
+    implementation("org.antlr:antlr4:4.13.1")
+    implementation("com.github.vlsi.mxgraph:jgraphx:4.2.2")
+    implementation("org.jfree:jfreechart:1.5.4")
 }
 
 val apiFilePatterns = mapOf(

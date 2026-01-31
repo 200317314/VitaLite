@@ -1,18 +1,15 @@
 package com.tonic.runelite;
 
-import com.google.common.reflect.ClassPath;
 import com.tonic.VitaLite;
+import com.tonic.services.hotswapper.PluginClassLoader;
 import com.tonic.vitalite.Main;
 import com.tonic.Static;
 import com.tonic.model.Guice;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
-import java.net.URL;
-import java.net.URLClassLoader;
 import java.nio.file.Path;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class Install {
     /**
@@ -24,33 +21,13 @@ public class Install {
         try
         {
             File builtIns = loadBuildIns().toFile();
-            URLClassLoader classLoader = new URLClassLoader(new URL[]{builtIns.toURI().toURL()}, Main.CLASSLOADER);
-            
-            // Load all classes and filter for plugins
-            List<Class<?>> pluginClasses = ClassPath.from(classLoader)
-                    .getAllClasses()
-                    .stream()
-                    .filter(info -> !info.getName().equals("module-info"))
-                    .map(ClassPath.ClassInfo::load)
-                    .filter(this::inheritsPluginClass)
-                    .collect(Collectors.toList());
-            
-            original.addAll(pluginClasses);
+            PluginClassLoader classLoader = new PluginClassLoader(builtIns, Main.CLASSLOADER);
+            original.addAll(classLoader.getPluginClasses());
         }
         catch (Exception e)
         {
             e.printStackTrace();
         }
-    }
-    
-    private boolean inheritsPluginClass(Class<?> clazz) {
-        if (clazz.getSuperclass() == null) {
-            return false;
-        }
-        if (clazz.getSuperclass().getName().endsWith(".Plugin")) {
-            return true;
-        }
-        return inheritsPluginClass(clazz.getSuperclass());
     }
 
     public static void install() {
