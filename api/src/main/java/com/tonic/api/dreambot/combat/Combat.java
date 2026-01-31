@@ -83,7 +83,7 @@ public class Combat {
     }
 
     /**
-     * Gets the wildernes level at the player's current location
+     * Gets the wilderness level at the player's current location
      * @return Wilderness level or -1 if not in wilderness
      */
     public static int getWildernessLevel() {
