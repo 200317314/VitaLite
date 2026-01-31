@@ -46,7 +46,7 @@ public class Calculations {
         if (player == null) {
             return Integer.MAX_VALUE;
         }
-        return distance(player.getWorldLocation(), point);
+        return distance(player.getWorldPoint(), point);
     }
 
     /**

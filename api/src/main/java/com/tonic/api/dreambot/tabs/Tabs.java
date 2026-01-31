@@ -13,10 +13,10 @@ import com.tonic.data.Tab;
  * <p><b>Example Usage:</b></p>
  * <pre>{@code
  * // Open a specific tab
- * Tabs.open(Tab.INVENTORY);
+ * Tabs.open(Tab.INVENTORY_TAB);
  * 
  * // Check if tab is open
- * if (Tabs.isOpen(Tab.PRAYER)) {
+ * if (Tabs.isOpen(Tab.PRAYER_TAB)) {
  *     // Prayer tab is open
  * }
  * 
@@ -47,90 +47,90 @@ public class Tabs {
      * Opens the combat tab
      */
     public static void openCombat() {
-        open(Tab.COMBAT);
+        open(Tab.COMBAT_TAB);
     }
 
     /**
      * Opens the stats/skills tab
      */
     public static void openSkills() {
-        open(Tab.SKILLS);
+        open(Tab.EXP_TAB);
     }
 
     /**
      * Opens the quest tab
      */
     public static void openQuests() {
-        open(Tab.QUESTS);
+        open(Tab.QUESTS_TAB);
     }
 
     /**
      * Opens the inventory tab
      */
     public static void openInventory() {
-        open(Tab.INVENTORY);
+        open(Tab.INVENTORY_TAB);
     }
 
     /**
      * Opens the equipment tab
      */
     public static void openEquipment() {
-        open(Tab.EQUIPMENT);
+        open(Tab.EQUIPMENT_TAB);
     }
 
     /**
      * Opens the prayer tab
      */
     public static void openPrayer() {
-        open(Tab.PRAYER);
+        open(Tab.PRAYER_TAB);
     }
 
     /**
      * Opens the magic tab
      */
     public static void openMagic() {
-        open(Tab.MAGIC);
+        open(Tab.SPELLBOOK_TAB);
     }
 
     /**
      * Opens the friends tab
      */
     public static void openFriends() {
-        open(Tab.FRIENDS);
+        open(Tab.FRIENDS_TAB);
     }
 
     /**
      * Opens the account management tab
      */
     public static void openAccount() {
-        open(Tab.ACCOUNT);
+        open(Tab.ACCOUNT_TAB);
     }
 
     /**
      * Opens the logout tab
      */
     public static void openLogout() {
-        open(Tab.LOGOUT);
+        open(Tab.LOGOUT_TAB);
     }
 
     /**
      * Opens the settings tab
      */
     public static void openSettings() {
-        open(Tab.SETTINGS);
+        open(Tab.SETTINGS_TAB);
     }
 
     /**
      * Opens the emotes tab
      */
     public static void openEmotes() {
-        open(Tab.EMOTES);
+        open(Tab.EMOTES_TAB);
     }
 
     /**
      * Opens the music tab
      */
     public static void openMusic() {
-        open(Tab.MUSIC);
+        open(Tab.MUSIC_TAB);
     }
 }

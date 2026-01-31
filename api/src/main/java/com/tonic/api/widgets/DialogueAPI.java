@@ -417,4 +417,56 @@ public class DialogueAPI
         WidgetAPI.interact(1, answerWidget.getId(), -1, -1);
         return true;
     }
+
+    /**
+     * Alias for dialoguePresent() to match DreamBot style naming
+     * @return true if a dialogue is present, false otherwise
+     */
+    public static boolean inDialogue()
+    {
+        return dialoguePresent();
+    }
+
+    /**
+     * Checks if the dialogue can be continued (continue button is available)
+     * @return true if dialogue can be continued, false otherwise
+     */
+    public static boolean canContinue()
+    {
+        return dialoguePresent() && !isViewingOptions();
+    }
+
+    /**
+     * Alias for isViewingOptions() to match DreamBot style naming
+     * @return true if dialogue options are available, false otherwise
+     */
+    public static boolean hasOptions()
+    {
+        return isViewingOptions();
+    }
+
+    /**
+     * Completes the current dialogue by continuing through until no more dialogue is present
+     * @return true if dialogue was completed, false if no dialogue was present
+     */
+    public static boolean completeDialogue()
+    {
+        if (!dialoguePresent())
+        {
+            return false;
+        }
+        
+        int iterations = 0;
+        while (dialoguePresent() && iterations < 50)
+        {
+            if (isViewingOptions())
+            {
+                // Can't auto-complete if options are present
+                return false;
+            }
+            continueDialogue();
+            iterations++;
+        }
+        return true;
+    }
 }

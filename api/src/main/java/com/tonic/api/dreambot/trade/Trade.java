@@ -123,7 +123,7 @@ public class Trade {
      * @return true if we have accepted
      */
     public static boolean hasAccepted() {
-        return TradeAPI.hasAccepted();
+        return TradeAPI.isAcceptedByPlayer();
     }
 
     /**
@@ -131,6 +131,6 @@ public class Trade {
      * @return true if other player has accepted
      */
     public static boolean hasOtherAccepted() {
-        return TradeAPI.hasOtherAccepted();
+        return TradeAPI.isAcceptedByOther();
     }
 }

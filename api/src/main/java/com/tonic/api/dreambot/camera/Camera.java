@@ -46,7 +46,7 @@ public class Camera {
      * @param yaw Yaw value to set
      */
     public static void setYaw(int yaw) {
-        CameraAPI.setYaw(yaw);
+        CameraAPI.setYawTarget(yaw);
     }
 
     /**
@@ -54,35 +54,35 @@ public class Camera {
      * @param pitch Pitch value to set
      */
     public static void setPitch(int pitch) {
-        CameraAPI.setPitch(pitch);
+        CameraAPI.setPitchTarget(pitch);
     }
 
     /**
      * Turns the camera to face north
      */
     public static void turnToNorth() {
-        CameraAPI.turnToNorth();
+        CameraAPI.faceNorth();
     }
 
     /**
      * Turns the camera to face south
      */
     public static void turnToSouth() {
-        CameraAPI.turnToSouth();
+        CameraAPI.faceSouth();
     }
 
     /**
      * Turns the camera to face east
      */
     public static void turnToEast() {
-        CameraAPI.turnToEast();
+        CameraAPI.faceEast();
     }
 
     /**
      * Turns the camera to face west
      */
     public static void turnToWest() {
-        CameraAPI.turnToWest();
+        CameraAPI.faceWest();
     }
 
     /**
