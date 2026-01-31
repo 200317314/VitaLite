@@ -314,3 +314,5 @@ Inventory.interact("Logs", "Drop");           // Thread-safe ✅
 GroundItems.take("Coins");                    // Thread-safe ✅
 Bank.withdraw("Logs", 28);                    // Thread-safe ✅
 ```
+
+For more detailed examples of thread safety, see `examples/ThreadSafetyExample.java`.
