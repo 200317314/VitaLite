@@ -3,6 +3,7 @@ package com.tonic.api.widgets;
 import com.tonic.Static;
 import com.tonic.api.TClient;
 import com.tonic.api.game.ClientScriptAPI;
+import com.tonic.api.threaded.Delays;
 import com.tonic.data.VarrockMuseumAnswer;
 import com.tonic.data.WidgetInfoExtended;
 import com.tonic.services.ClickManager;
@@ -23,6 +24,13 @@ import java.util.List;
 public class DialogueAPI
 {
     private static final net.runelite.client.config.ConfigManager configManager = Static.getInjector().getInstance(ConfigManager.class);
+    
+    /**
+     * Maximum number of iterations for completeDialogue() method.
+     * This represents the maximum expected dialogue chain length in OSRS.
+     * Most dialogues are shorter, but some quest dialogues can be extensive.
+     */
+    private static final int MAX_DIALOGUE_ITERATIONS = 50;
 
 	/**
      * Retrieves the header of the current dialogue, which may indicate the speaker or context.
@@ -457,7 +465,7 @@ public class DialogueAPI
         }
         
         int iterations = 0;
-        while (dialoguePresent() && iterations < 50)
+        while (dialoguePresent() && iterations < MAX_DIALOGUE_ITERATIONS)
         {
             if (isViewingOptions())
             {
@@ -466,6 +474,9 @@ public class DialogueAPI
             }
             continueDialogue();
             iterations++;
+            // Wait one game tick between dialogue continues to avoid tight-looping
+            // and allow the game state to update
+            Delays.tick();
         }
         return true;
     }
