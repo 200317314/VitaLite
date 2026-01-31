@@ -1,10 +1,26 @@
 package com.tonic.api.dreambot;
 
 import com.tonic.api.dreambot.bank.Bank;
+import com.tonic.api.dreambot.camera.Camera;
+import com.tonic.api.dreambot.combat.Combat;
+import com.tonic.api.dreambot.dialogue.Dialogue;
+import com.tonic.api.dreambot.equipment.Equipment;
+import com.tonic.api.dreambot.game.Game;
 import com.tonic.api.dreambot.gameobject.GameObjects;
+import com.tonic.api.dreambot.grandexchange.GrandExchange;
 import com.tonic.api.dreambot.grounditem.GroundItems;
 import com.tonic.api.dreambot.inventory.Inventory;
+import com.tonic.api.dreambot.magic.Magic;
 import com.tonic.api.dreambot.npc.NPCs;
+import com.tonic.api.dreambot.player.Players;
+import com.tonic.api.dreambot.prayer.Prayer;
+import com.tonic.api.dreambot.shop.Shop;
+import com.tonic.api.dreambot.skills.Skills;
+import com.tonic.api.dreambot.tabs.Tabs;
+import com.tonic.api.dreambot.trade.Trade;
+import com.tonic.api.dreambot.walking.Walking;
+import com.tonic.api.dreambot.widgets.Widgets;
+import com.tonic.api.dreambot.world.Worlds;
 
 /**
  * DreamBot-style API for VitaLite
@@ -27,83 +43,104 @@ import com.tonic.api.dreambot.npc.NPCs;
  * </p>
  * 
  * <h2>Main API Classes:</h2>
+ * <h3>Entity APIs:</h3>
  * <ul>
  *   <li>{@link NPCs} - Methods for interacting with NPCs</li>
+ *   <li>{@link Players} - Methods for interacting with players</li>
  *   <li>{@link GameObjects} - Methods for interacting with game objects</li>
- *   <li>{@link Bank} - Methods for interacting with the bank</li>
- *   <li>{@link Inventory} - Methods for interacting with inventory items</li>
  *   <li>{@link GroundItems} - Methods for interacting with ground items</li>
+ * </ul>
+ * 
+ * <h3>Inventory & Equipment APIs:</h3>
+ * <ul>
+ *   <li>{@link Inventory} - Methods for interacting with inventory items</li>
+ *   <li>{@link Equipment} - Methods for managing equipment</li>
+ *   <li>{@link Bank} - Methods for interacting with the bank</li>
+ * </ul>
+ * 
+ * <h3>Combat & Skills APIs:</h3>
+ * <ul>
+ *   <li>{@link Combat} - Methods for combat information</li>
+ *   <li>{@link Skills} - Methods for accessing skill information</li>
+ *   <li>{@link Magic} - Methods for magic and spellcasting</li>
+ *   <li>{@link Prayer} - Methods for prayer management</li>
+ * </ul>
+ * 
+ * <h3>Game Interaction APIs:</h3>
+ * <ul>
+ *   <li>{@link Walking} - Methods for movement and walking</li>
+ *   <li>{@link Camera} - Methods for camera control</li>
+ *   <li>{@link Dialogue} - Methods for dialogue interaction</li>
+ *   <li>{@link Tabs} - Methods for tab switching</li>
+ * </ul>
+ * 
+ * <h3>Trading & Commerce APIs:</h3>
+ * <ul>
+ *   <li>{@link GrandExchange} - Methods for Grand Exchange operations</li>
+ *   <li>{@link Trade} - Methods for trading with players</li>
+ *   <li>{@link Shop} - Methods for shop interaction</li>
+ * </ul>
+ * 
+ * <h3>Utility APIs:</h3>
+ * <ul>
+ *   <li>{@link Game} - Methods for game state and utilities</li>
+ *   <li>{@link Worlds} - Methods for world hopping</li>
+ *   <li>{@link Widgets} - Methods for widget interaction</li>
  * </ul>
  * 
  * <h2>Usage Examples:</h2>
  * 
- * <h3>NPCs:</h3>
+ * <h3>NPCs & Players:</h3>
  * <pre>{@code
- * // Find and interact with an NPC
- * NpcEx banker = NPCs.closest("Banker");
- * NPCs.interact(banker, "Bank");
- * 
- * // Or do it in one line
+ * // Interact with NPCs
  * NPCs.interact("Banker", "Bank");
  * 
- * // Get all NPCs with a specific name
- * List<NpcEx> guards = NPCs.getAll("Guard");
+ * // Interact with players
+ * Players.interact("PlayerName", "Trade");
  * }</pre>
  * 
- * <h3>GameObjects:</h3>
+ * <h3>Combat & Skills:</h3>
  * <pre>{@code
- * // Find and interact with a game object
- * TileObjectEx door = GameObjects.closest("Door");
- * GameObjects.interact(door, "Open");
- * 
- * // Or do it in one line
- * GameObjects.interact("Door", "Open");
- * 
- * // Get objects with specific action
- * TileObjectEx altar = GameObjects.closestWithAction("Pray");
- * }</pre>
- * 
- * <h3>Bank:</h3>
- * <pre>{@code
- * if (Bank.isOpen()) {
- *     Bank.depositAllItems();
- *     Bank.withdraw("Logs", 28);
- *     Bank.withdraw(1511, 10); // By ID
- *     Bank.close();
- * }
- * }</pre>
- * 
- * <h3>Inventory:</h3>
- * <pre>{@code
- * // Check if inventory contains an item
- * if (Inventory.contains("Logs")) {
- *     Inventory.interact("Logs", "Drop");
+ * // Check combat status
+ * if (Combat.isInCombat()) {
+ *     // Handle combat
  * }
  * 
- * // Drop all items of a type
- * Inventory.dropAll("Logs");
- * 
- * // Use an item on another
- * ItemEx knife = Inventory.getItem("Knife");
- * ItemEx logs = Inventory.getItem("Logs");
- * Inventory.useItemOn(knife, logs);
+ * // Get skill levels
+ * int attackLevel = Skills.getLevel(Skill.ATTACK);
  * }</pre>
  * 
- * <h3>GroundItems:</h3>
+ * <h3>Magic & Prayer:</h3>
  * <pre>{@code
- * // Find and pick up an item
- * TileItemEx coins = GroundItems.closest("Coins");
- * GroundItems.take(coins);
+ * // Cast spells
+ * Magic.cast(Standard.FIRE_BOLT, npc);
  * 
- * // Or do it in one line
- * GroundItems.take("Coins");
+ * // Manage prayers
+ * Prayer.activate(PrayerAPI.PROTECT_FROM_MELEE);
+ * }</pre>
  * 
- * // Get all items at a location
- * List<TileItemEx> items = GroundItems.getAllAt(new WorldPoint(3200, 3200, 0));
+ * <h3>Movement & Camera:</h3>
+ * <pre>{@code
+ * // Walk to location
+ * Walking.walk(new WorldPoint(3200, 3200, 0));
+ * 
+ * // Control camera
+ * Camera.turnToNorth();
+ * }</pre>
+ * 
+ * <h3>Dialogue & Tabs:</h3>
+ * <pre>{@code
+ * // Handle dialogues
+ * if (Dialogue.canContinue()) {
+ *     Dialogue.continueDialogue();
+ * }
+ * 
+ * // Switch tabs
+ * Tabs.openInventory();
  * }</pre>
  * 
  * @author VitaLite Team
- * @version 1.0
+ * @version 2.0
  */
 public class DreamBotAPI {
     
@@ -113,47 +150,5 @@ public class DreamBotAPI {
      */
     private DreamBotAPI() {
         throw new UnsupportedOperationException("This is a utility class and cannot be instantiated");
-    }
-    
-    // Static references to API classes for convenience
-    
-    /**
-     * Gets the NPCs API
-     * @return NPCs API class
-     */
-    public static Class<NPCs> npcs() {
-        return NPCs.class;
-    }
-    
-    /**
-     * Gets the GameObjects API
-     * @return GameObjects API class
-     */
-    public static Class<GameObjects> gameObjects() {
-        return GameObjects.class;
-    }
-    
-    /**
-     * Gets the Bank API
-     * @return Bank API class
-     */
-    public static Class<Bank> bank() {
-        return Bank.class;
-    }
-    
-    /**
-     * Gets the Inventory API
-     * @return Inventory API class
-     */
-    public static Class<Inventory> inventory() {
-        return Inventory.class;
-    }
-    
-    /**
-     * Gets the GroundItems API
-     * @return GroundItems API class
-     */
-    public static Class<GroundItems> groundItems() {
-        return GroundItems.class;
     }
 }
