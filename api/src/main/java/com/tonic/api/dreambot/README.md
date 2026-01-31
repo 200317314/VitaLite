@@ -316,3 +316,201 @@ Bank.withdraw("Logs", 28);                    // Thread-safe ✅
 ```
 
 For more detailed examples of thread safety, see `examples/ThreadSafetyExample.java`.
+
+## NEW: Additional API Wrappers (Extended Coverage)
+
+The following APIs have been added to provide comprehensive DreamBot-style coverage:
+
+### ✅ Players (`com.tonic.api.dreambot.player.Players`)
+- `getAll()` / `getAll(filter)` / `getAll(names...)` - Get players
+- `closest()` / `closest(filter)` / `closest(names...)` - Get closest player
+- `closestWithinDistance(distance)` - Get closest player within distance
+- `getLocal()` - Get local player
+- `interact(player, actions...)` - Interact with player
+- `interact(name, action)` - Find and interact with player
+- `query()` - Create advanced query
+- `isIdle()` / `isAnimating()` / `isMoving()` - Check player state
+- `getLocation()` - Get player location
+
+### ✅ Skills (`com.tonic.api.dreambot.skills.Skills`)
+- `getLevel(skill)` - Get base level of skill
+- `getBoostedLevel(skill)` - Get current (boosted) level
+- `getExperience(skill)` - Get experience in skill
+- `getExperienceToNextLevel(skill)` - Get XP needed for next level
+- `getTotalLevel()` - Get total level across all skills
+- `getBoostedTotalLevel()` - Get total boosted level
+- `getTotalExperience()` - Get total experience
+- `getExperienceAt(level)` - Get XP required for level
+- `getLevelAt(experience)` - Get level for XP amount
+
+### ✅ Equipment (`com.tonic.api.dreambot.equipment.Equipment`)
+- `getAll()` - Get all equipped items
+- `isEquipped(id/name/filter)` - Check if item is equipped
+- `getItem(id/name/filter)` - Get equipped item
+- `getItemInSlot(slot)` - Get item in specific slot
+- `equip(id/name)` - Equip item from inventory
+- `unequip(slot/item)` - Unequip item
+- `unequipAll()` - Unequip all items
+- `getCount(id)` - Get count of equipped item
+- `interact(item, action)` - Interact with equipped item
+- `query()` - Create advanced query
+
+### ✅ Combat (`com.tonic.api.dreambot.combat.Combat`)
+- `isInCombat()` - Check if in combat
+- `isUnderAttack()` - Check if under attack
+- `getTarget()` - Get current combat target
+- `getAttacker()` - Get current attacker
+- `isAutoRetaliateEnabled()` - Check auto-retaliate status
+- `getSpecialAttackEnergy()` - Get special attack energy (0-100)
+- `isSpecialAttackEnabled()` - Check if special attack is enabled
+- `getWildernessLevel()` - Get wilderness level
+- `isInWilderness()` - Check if in wilderness
+
+### ✅ Walking (`com.tonic.api.dreambot.walking.Walking`)
+- `walk(destination)` - Walk to world point
+- `walk(x, y, plane)` - Walk to coordinates
+- `isMoving()` - Check if player is moving
+- `getDestination()` - Get movement destination
+- `getRunEnergy()` - Get run energy (0-100)
+- `isRunEnabled()` - Check if run is enabled
+- `toggleRun()` - Toggle run mode
+- `isStaminaActive()` - Check if stamina is active
+- `enableRun()` / `disableRun()` - Set run mode
+
+### ✅ Magic (`com.tonic.api.dreambot.magic.Magic`)
+- `cast(spell)` - Cast spell
+- `cast(spell, target)` - Cast spell on NPC/Player/Item/Object/GroundItem
+- `isAutoCasting()` - Check if autocasting
+- `isAutoCastUsable()` - Check if autocast is usable
+- `setBestAutoCast()` - Set best available autocast
+- `isHomeTeleportOnCooldown()` - Check home teleport cooldown
+- `isDefensiveCasting()` - Check defensive casting mode
+
+### ✅ Prayer (`com.tonic.api.dreambot.prayer.Prayer`)
+- `isAnyActive()` - Check if any prayer is active
+- `isActive(prayer)` - Check if specific prayer is active
+- `activate(prayer)` / `deactivate(prayer)` - Activate/deactivate prayer
+- `toggle(prayer)` - Toggle prayer
+- `deactivateAll()` - Deactivate all prayers
+- `isQuickPrayerEnabled()` - Check quick prayer status
+- `toggleQuickPrayer()` - Toggle quick prayer
+- `turnOnQuickPrayers()` / `turnOffQuickPrayers()` - Set quick prayer state
+- `setQuickPrayer(prayers...)` - Configure quick prayers
+- `hasLevelFor(prayer)` - Check if player has required level
+- `getPrayerLevel()` / `getPrayerPoints()` - Get prayer info
+
+### ✅ Camera (`com.tonic.api.dreambot.camera.Camera`)
+- `getYaw()` / `getPitch()` - Get camera angles
+- `setYaw(yaw)` / `setPitch(pitch)` - Set camera angles
+- `turnToNorth()` / `turnToSouth()` / `turnToEast()` / `turnToWest()` - Turn camera
+- `getX()` / `getY()` / `getZ()` - Get camera position
+
+### ✅ Dialogue (`com.tonic.api.dreambot.dialogue.Dialogue`)
+- `isOpen()` - Check if dialogue is open
+- `getHeader()` - Get dialogue header (speaker name)
+- `getText()` - Get dialogue text
+- `canContinue()` - Check if can continue
+- `continueDialogue()` - Continue dialogue
+- `hasOptions()` - Check if options available
+- `getOptions()` - Get dialogue options
+- `selectOption(text)` - Select option by text
+- `selectOptionIndex(index)` - Select option by index
+- `completeDialogue()` - Complete entire dialogue
+- `isNPCDialogue()` / `isPlayerDialogue()` - Check dialogue type
+
+### ✅ Tabs (`com.tonic.api.dreambot.tabs.Tabs`)
+- `open(tab)` - Open specific tab
+- `isOpen(tab)` - Check if tab is open
+- `openCombat()` / `openSkills()` / `openQuests()` - Quick access methods
+- `openInventory()` / `openEquipment()` / `openPrayer()` / `openMagic()` - More quick methods
+- `openFriends()` / `openAccount()` / `openLogout()` / `openSettings()` - Additional tabs
+- `openEmotes()` / `openMusic()` - Even more tabs
+
+### ✅ GrandExchange (`com.tonic.api.dreambot.grandexchange.GrandExchange`)
+- `isOpen()` - Check if GE is open
+- `close()` - Close GE interface
+- `canCollect()` - Check if items can be collected
+- `collect()` - Collect completed offers
+- `getOffers()` - Get all active offers
+- `abortOffer(itemId)` - Abort offer
+- `isOfferComplete(itemId)` - Check if offer is complete
+- `getFirstEmptySlot()` - Get first empty slot
+
+### ✅ Trade (`com.tonic.api.dreambot.trade.Trade`)
+- `isOpen()` - Check if trade window is open
+- `isOnMainScreen()` / `isOnConfirmationScreen()` - Check trade screen
+- `getOfferingItems()` / `getReceivingItems()` - Get trade items
+- `offer(id/name, amount)` - Offer items
+- `remove(id/name, amount)` - Remove items from trade
+- `accept()` / `decline()` - Accept or decline trade
+- `hasAccepted()` / `hasOtherAccepted()` - Check acceptance status
+
+### ✅ Shop (`com.tonic.api.dreambot.shop.Shop`)
+- `isOpen()` - Check if shop is open
+- `close()` - Close shop interface
+- `buy(id/name, amount)` - Buy items
+- `sell(id/name, amount)` - Sell items
+- `getShopItems()` - Get all shop items
+- `getShopItem(id/name)` - Get specific shop item
+- `contains(id/name)` - Check if shop contains item
+
+### ✅ Game (`com.tonic.api.dreambot.game.Game`)
+- `isLoggedIn()` - Check if player is logged in
+- `isOnLoginScreen()` - Check if on login screen
+- `getWildernessLevel()` - Get wilderness level
+- `isInWilderness()` - Check if in wilderness
+- `logout()` - Logout of game
+- `getCurrentWorld()` - Get current world number
+- `getGameTick()` - Get game tick count
+- `getUsername()` - Get player username
+- `getFPS()` - Get current FPS
+
+### ✅ Worlds (`com.tonic.api.dreambot.world.Worlds`)
+- `getCurrentWorld()` - Get current world
+- `hopRandomMembers()` / `hopRandomF2P()` - Hop to random world
+- `hopNextMembers()` / `hopPreviousMembers()` - Hop to next/previous members world
+- `hopNextF2P()` / `hopPreviousF2P()` - Hop to next/previous F2P world
+- `hop(world)` / `hop(worldId)` - Hop to specific world
+- `query()` / `query(includeCurrentWorld)` - Create world query
+- `getCurrentWorldNumber()` - Get current world number
+
+### ✅ Widgets (`com.tonic.api.dreambot.widgets.Widgets`)
+- `get(groupId, childId)` / `get(packedId)` - Get widget
+- `isVisible(widget)` / `isVisible(groupId, childId)` - Check visibility
+- `interact(widget, actions...)` - Interact with widget
+- `getText(widget)` / `getText(groupId, childId)` - Get widget text
+- `query()` - Create widget query
+- `isTextVisible(text)` - Check if text is visible
+
+### ✅ DepositBox (`com.tonic.api.dreambot.depositbox.DepositBox`)
+- `isOpen()` - Check if deposit box is open
+- `close()` - Close deposit box
+- `depositAll()` - Deposit all items
+- `depositWornItems()` - Deposit all worn items
+- `depositLootingBag()` - Deposit looting bag
+- `deposit(id/name, amount)` - Deposit specific items
+- `depositAllExcept(ids.../names...)` - Deposit all except specified
+
+### ✅ MiniMap (`com.tonic.api.dreambot.minimap.MiniMap`)
+- `drawPath(graphics, path, color)` - Draw path on minimap
+- `drawPoint(graphics, point, color)` - Draw point on minimap
+
+### ✅ Calculations (`com.tonic.api.dreambot.calculations.Calculations`)
+- `distance(p1, p2)` - Calculate distance between points
+- `distanceToPlayer(point)` - Calculate distance to player
+- `onSamePlane(p1, p2)` - Check if points on same plane
+- `planeDifference(p1, p2)` - Get plane difference
+- `isWithinDistance(p1, p2, maxDistance)` - Check if within distance
+- `isWithinDistanceOfPlayer(point, maxDistance)` - Check if within distance of player
+
+## Summary
+
+The DreamBot API wrapper now includes **24 API classes** with **270+ convenience methods** covering:
+- Entity interaction (NPCs, Players, GameObjects, GroundItems)
+- Inventory management (Inventory, Equipment, Bank, DepositBox)
+- Combat systems (Combat, Skills, Magic, Prayer)
+- Movement & Interaction (Walking, Camera, Dialogue, Tabs)
+- Trading & Commerce (GrandExchange, Trade, Shop)
+- Utilities (Game, Worlds, Widgets, MiniMap, Calculations)
+
+All APIs follow DreamBot naming conventions and are fully thread-safe.
