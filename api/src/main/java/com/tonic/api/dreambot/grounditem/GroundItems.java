@@ -54,7 +54,7 @@ public class GroundItems {
      * @return List of ground items with matching names
      */
     public static List<TileItemEx> getAll(String... names) {
-        return TileItemAPI.search().withName(names).collect();
+        return TileItemAPI.search().withNames(names).collect();
     }
 
     /**
@@ -89,7 +89,7 @@ public class GroundItems {
      * @return Closest matching ground item or null if none found
      */
     public static TileItemEx closest(String... names) {
-        return TileItemAPI.search().withName(names).sortNearest().first();
+        return TileItemAPI.search().withNames(names).sortNearest().first();
     }
 
     /**
