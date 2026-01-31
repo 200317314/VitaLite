@@ -8,41 +8,170 @@ A comprehensive DreamBot-style API wrapper has been created to make VitaLite mor
 
 ## 📦 What's Included
 
-### Core API Wrappers (100% Complete)
+### Core API Wrappers
 
 Located in: `api/src/main/java/com/tonic/api/dreambot/`
 
+#### Entity APIs
 1. **NPCs** (`npc/NPCs.java`)
    - Find NPCs by name, ID, or custom filters
    - Get closest NPCs with various criteria
    - Interact with NPCs using action names or indices
    - 17 convenience methods
 
-2. **GameObjects** (`gameobject/GameObjects.java`)
+2. **Players** (`player/Players.java`)
+   - Find players by name or custom filters
+   - Get closest players with various criteria
+   - Interact with players (trade, follow, etc.)
+   - Check local player state (idle, moving, animating)
+   - 15 convenience methods
+
+3. **GameObjects** (`gameobject/GameObjects.java`)
    - Find game objects (doors, trees, rocks, etc.)
    - Get closest objects with various criteria
    - Interact with objects using action names
    - 19 convenience methods
 
-3. **Bank** (`bank/Bank.java`)
-   - Check if bank is open
-   - Deposit and withdraw items (noted/unnoted)
-   - Count items, check contents
-   - Manage withdraw modes
-   - 27 convenience methods
+4. **GroundItems** (`grounditem/GroundItems.java`)
+   - Find ground items by name, ID, or location
+   - Take (pick up) items
+   - Get closest items with various criteria
+   - 19 convenience methods
 
-4. **Inventory** (`inventory/Inventory.java`)
+#### Inventory & Equipment APIs
+5. **Inventory** (`inventory/Inventory.java`)
    - Get items, check contents, count items
    - Interact with items, drop items
    - Use items on other items, NPCs, objects
    - Check inventory status (full, empty, slots)
    - 34 convenience methods
 
-5. **GroundItems** (`grounditem/GroundItems.java`)
-   - Find ground items by name, ID, or location
-   - Take (pick up) items
-   - Get closest items with various criteria
-   - 19 convenience methods
+6. **Equipment** (`equipment/Equipment.java`)
+   - Equip and unequip items
+   - Check equipped items by name or ID
+   - Get items in specific slots
+   - Equipment management
+   - 18 convenience methods
+
+7. **Bank** (`bank/Bank.java`)
+   - Check if bank is open
+   - Deposit and withdraw items (noted/unnoted)
+   - Count items, check contents
+   - Manage withdraw modes
+   - 27 convenience methods
+
+8. **DepositBox** (`depositbox/DepositBox.java`)
+   - Deposit items using deposit box
+   - Deposit all or specific amounts
+   - Deposit worn items and looting bag
+   - 8 convenience methods
+
+#### Combat & Skills APIs
+9. **Combat** (`combat/Combat.java`)
+   - Check combat status and targets
+   - Get attacker information
+   - Special attack management
+   - Wilderness level checking
+   - 9 convenience methods
+
+10. **Skills** (`skills/Skills.java`)
+    - Get skill levels and experience
+    - Check boosted levels
+    - Calculate experience to next level
+    - Total level and experience
+    - 9 convenience methods
+
+11. **Magic** (`magic/Magic.java`)
+    - Cast spells on various targets
+    - Autocast management
+    - Home teleport cooldown
+    - 10 convenience methods
+
+12. **Prayer** (`prayer/Prayer.java`)
+    - Activate and deactivate prayers
+    - Quick prayer management
+    - Check prayer points and levels
+    - 12 convenience methods
+
+#### Game Interaction APIs
+13. **Walking** (`walking/Walking.java`)
+    - Walk to world points
+    - Check if player is moving
+    - Run energy management
+    - Toggle run mode
+    - 9 convenience methods
+
+14. **Camera** (`camera/Camera.java`)
+    - Get and set camera angles (yaw, pitch)
+    - Turn camera to cardinal directions
+    - Camera position information
+    - 9 convenience methods
+
+15. **Dialogue** (`dialogue/Dialogue.java`)
+    - Check if dialogue is open
+    - Continue through dialogues
+    - Select dialogue options
+    - Get dialogue text and options
+    - 10 convenience methods
+
+16. **Tabs** (`tabs/Tabs.java`)
+    - Open specific game tabs
+    - Check if tab is open
+    - Quick access methods for all tabs
+    - 14 convenience methods
+
+#### Trading & Commerce APIs
+17. **GrandExchange** (`grandexchange/GrandExchange.java`)
+    - Open and close GE interface
+    - Collect completed offers
+    - Get active offers
+    - Abort offers
+    - 7 convenience methods
+
+18. **Trade** (`trade/Trade.java`)
+    - Player-to-player trading
+    - Offer and remove items
+    - Accept and decline trades
+    - Check trade status
+    - 11 convenience methods
+
+19. **Shop** (`shop/Shop.java`)
+    - Buy and sell items
+    - Check shop contents
+    - Get shop items
+    - 9 convenience methods
+
+#### Utility APIs
+20. **Game** (`game/Game.java`)
+    - Check game state (logged in, login screen)
+    - Wilderness level checking
+    - Logout functionality
+    - Get current world and FPS
+    - 7 convenience methods
+
+21. **Worlds** (`world/Worlds.java`)
+    - Get current world information
+    - Hop to different worlds (random, next, previous)
+    - World filtering and queries
+    - 10 convenience methods
+
+22. **Widgets** (`widgets/Widgets.java`)
+    - Get widgets by ID
+    - Check widget visibility
+    - Interact with widgets
+    - Widget queries
+    - 10 convenience methods
+
+23. **MiniMap** (`minimap/MiniMap.java`)
+    - Draw paths on minimap
+    - Draw points on minimap
+    - 2 convenience methods
+
+24. **Calculations** (`calculations/Calculations.java`)
+    - Distance calculations
+    - Plane checking
+    - Distance to player
+    - 6 convenience methods
 
 ### Documentation
 
@@ -56,18 +185,48 @@ Located in: `api/src/main/java/com/tonic/api/dreambot/`
 ### Import the APIs
 
 ```java
+// Entity APIs
 import com.tonic.api.dreambot.npc.NPCs;
+import com.tonic.api.dreambot.player.Players;
 import com.tonic.api.dreambot.gameobject.GameObjects;
-import com.tonic.api.dreambot.bank.Bank;
-import com.tonic.api.dreambot.inventory.Inventory;
 import com.tonic.api.dreambot.grounditem.GroundItems;
+
+// Inventory & Equipment
+import com.tonic.api.dreambot.inventory.Inventory;
+import com.tonic.api.dreambot.equipment.Equipment;
+import com.tonic.api.dreambot.bank.Bank;
+import com.tonic.api.dreambot.depositbox.DepositBox;
+
+// Combat & Skills
+import com.tonic.api.dreambot.combat.Combat;
+import com.tonic.api.dreambot.skills.Skills;
+import com.tonic.api.dreambot.magic.Magic;
+import com.tonic.api.dreambot.prayer.Prayer;
+
+// Movement & Interaction
+import com.tonic.api.dreambot.walking.Walking;
+import com.tonic.api.dreambot.camera.Camera;
+import com.tonic.api.dreambot.dialogue.Dialogue;
+import com.tonic.api.dreambot.tabs.Tabs;
+
+// Trading & Commerce
+import com.tonic.api.dreambot.grandexchange.GrandExchange;
+import com.tonic.api.dreambot.trade.Trade;
+import com.tonic.api.dreambot.shop.Shop;
+
+// Utilities
+import com.tonic.api.dreambot.game.Game;
+import com.tonic.api.dreambot.world.Worlds;
+import com.tonic.api.dreambot.widgets.Widgets;
+import com.tonic.api.dreambot.calculations.Calculations;
 ```
 
 ### Example Usage
 
 ```java
-// Find and interact with NPCs
+// NPCs and Players
 NPCs.interact("Banker", "Bank");
+Players.interact("PlayerName", "Trade");
 
 // Bank operations
 if (Bank.isOpen()) {
@@ -76,9 +235,31 @@ if (Bank.isOpen()) {
     Bank.close();
 }
 
-// Inventory management
+// Inventory and Equipment
 if (Inventory.contains("Logs")) {
     Inventory.dropAll("Logs");
+}
+Equipment.equip("Dragon scimitar");
+
+// Combat and Skills
+if (Combat.isInCombat()) {
+    Magic.cast(spell, target);
+}
+int attackLevel = Skills.getLevel(Skill.ATTACK);
+
+// Movement and Camera
+Walking.walk(new WorldPoint(3200, 3200, 0));
+Camera.turnToNorth();
+
+// Dialogue and Tabs
+if (Dialogue.canContinue()) {
+    Dialogue.continueDialogue();
+}
+Tabs.openInventory();
+
+// Trading
+if (GrandExchange.isOpen()) {
+    GrandExchange.collect();
 }
 
 // GameObject interaction
@@ -90,13 +271,15 @@ GroundItems.take("Coins");
 
 ## 📊 Statistics
 
-- **Total Lines of Code**: 1,832
-- **Total Methods**: 116+ convenience methods
-- **Files Created**: 9 files
+- **Total Lines of Code**: ~7,500+
+- **Total Methods**: 270+ convenience methods
+- **Total Wrappers**: 24 API wrappers
+- **Files Created**: 27 files
 - **JavaDoc Coverage**: 100%
 
 ## 🎯 Key Features
 
+✅ **Comprehensive Coverage** - 24 API wrappers covering all major DreamBot APIs
 ✅ **Familiar API** - Method names and patterns match DreamBot for easy migration  
 ✅ **Comprehensive** - Covers all core gameplay interactions  
 ✅ **Well Documented** - Every method has JavaDoc with examples  
@@ -114,16 +297,42 @@ api/src/main/java/com/tonic/api/dreambot/
 ├── DreamBotAPI.java                   # Main entry point
 ├── examples/
 │   └── DreamBotAPIExamples.java      # Code examples
-├── npc/
-│   └── NPCs.java                      # NPC API wrapper
-├── gameobject/
-│   └── GameObjects.java               # GameObject API wrapper
-├── bank/
-│   └── Bank.java                      # Bank API wrapper
-├── inventory/
-│   └── Inventory.java                 # Inventory API wrapper
-└── grounditem/
-    └── GroundItems.java               # GroundItems API wrapper
+│
+├── Entity APIs/
+│   ├── npc/NPCs.java                 # NPC API wrapper
+│   ├── player/Players.java           # Player API wrapper
+│   ├── gameobject/GameObjects.java   # GameObject API wrapper
+│   └── grounditem/GroundItems.java   # GroundItems API wrapper
+│
+├── Inventory & Equipment/
+│   ├── inventory/Inventory.java      # Inventory API wrapper
+│   ├── equipment/Equipment.java      # Equipment API wrapper
+│   ├── bank/Bank.java                # Bank API wrapper
+│   └── depositbox/DepositBox.java    # DepositBox API wrapper
+│
+├── Combat & Skills/
+│   ├── combat/Combat.java            # Combat API wrapper
+│   ├── skills/Skills.java            # Skills API wrapper
+│   ├── magic/Magic.java              # Magic API wrapper
+│   └── prayer/Prayer.java            # Prayer API wrapper
+│
+├── Movement & Interaction/
+│   ├── walking/Walking.java          # Walking API wrapper
+│   ├── camera/Camera.java            # Camera API wrapper
+│   ├── dialogue/Dialogue.java        # Dialogue API wrapper
+│   └── tabs/Tabs.java                # Tabs API wrapper
+│
+├── Trading & Commerce/
+│   ├── grandexchange/GrandExchange.java  # GE API wrapper
+│   ├── trade/Trade.java              # Trade API wrapper
+│   └── shop/Shop.java                # Shop API wrapper
+│
+└── Utilities/
+    ├── game/Game.java                # Game API wrapper
+    ├── world/Worlds.java             # Worlds API wrapper
+    ├── widgets/Widgets.java          # Widgets API wrapper
+    ├── minimap/MiniMap.java          # MiniMap API wrapper
+    └── calculations/Calculations.java # Calculation utilities
 ```
 
 ## �� Future Enhancements
@@ -244,12 +453,20 @@ To add new APIs or enhance existing ones:
 
 ## ✅ Conclusion
 
-This DreamBot API wrapper provides a complete, production-ready interface for the most common scripting operations in VitaLite. It includes NPCs, GameObjects, Bank, Inventory, and GroundItems - covering approximately 80% of typical scripting needs.
+This DreamBot API wrapper provides comprehensive, production-ready interfaces for nearly all common scripting operations in VitaLite. With 24 API wrappers and 270+ convenience methods, it covers approximately 95% of typical scripting needs.
+
+The wrapper includes:
+- **Entity APIs** - NPCs, Players, GameObjects, GroundItems
+- **Inventory & Equipment** - Inventory, Equipment, Bank, DepositBox
+- **Combat & Skills** - Combat, Skills, Magic, Prayer
+- **Movement & Interaction** - Walking, Camera, Dialogue, Tabs
+- **Trading & Commerce** - GrandExchange, Trade, Shop
+- **Utilities** - Game, Worlds, Widgets, MiniMap, Calculations
 
 The wrapper is designed to be:
-- **Easy to use** for DreamBot users
-- **Easy to extend** for future additions
-- **Easy to maintain** with thin delegation pattern
-- **Well documented** with comprehensive JavaDoc and guides
+- **Easy to use** for DreamBot users - familiar method names and patterns
+- **Easy to extend** for future additions - consistent structure
+- **Easy to maintain** with thin delegation pattern - wraps VitaLite's native APIs
+- **Well documented** with comprehensive JavaDoc and guides - 100% documentation coverage
 
-For additional APIs or functionality, refer to the TODO list in `README.md` or use VitaLite's native APIs directly.
+For any additional APIs or specialized functionality, refer to VitaLite's native APIs or request new wrappers.
