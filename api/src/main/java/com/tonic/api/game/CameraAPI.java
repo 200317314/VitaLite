@@ -393,4 +393,34 @@ public class CameraAPI
     {
         return Math.abs(getPitch() - getPitchTarget());
     }
+
+    /**
+     * Gets the camera X position in the scene
+     * @return Camera X position
+     */
+    public static int getX()
+    {
+        Client client = Static.getClient();
+        return Static.invoke(client::getCameraX);
+    }
+
+    /**
+     * Gets the camera Y position in the scene
+     * @return Camera Y position
+     */
+    public static int getY()
+    {
+        Client client = Static.getClient();
+        return Static.invoke(client::getCameraY);
+    }
+
+    /**
+     * Gets the camera Z position (height) in the scene
+     * @return Camera Z position
+     */
+    public static int getZ()
+    {
+        Client client = Static.getClient();
+        return Static.invoke(client::getCameraZ);
+    }
 }

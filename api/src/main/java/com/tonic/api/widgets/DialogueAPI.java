@@ -3,6 +3,7 @@ package com.tonic.api.widgets;
 import com.tonic.Static;
 import com.tonic.api.TClient;
 import com.tonic.api.game.ClientScriptAPI;
+import com.tonic.api.threaded.Delays;
 import com.tonic.data.VarrockMuseumAnswer;
 import com.tonic.data.WidgetInfoExtended;
 import com.tonic.services.ClickManager;
@@ -23,6 +24,13 @@ import java.util.List;
 public class DialogueAPI
 {
     private static final net.runelite.client.config.ConfigManager configManager = Static.getInjector().getInstance(ConfigManager.class);
+    
+    /**
+     * Maximum number of iterations for completeDialogue() method.
+     * This represents the maximum expected dialogue chain length in OSRS.
+     * Most dialogues are shorter, but some quest dialogues can be extensive.
+     */
+    private static final int MAX_DIALOGUE_ITERATIONS = 50;
 
 	/**
      * Retrieves the header of the current dialogue, which may indicate the speaker or context.
@@ -415,6 +423,61 @@ public class DialogueAPI
             return false;
 
         WidgetAPI.interact(1, answerWidget.getId(), -1, -1);
+        return true;
+    }
+
+    /**
+     * Alias for dialoguePresent() to match DreamBot style naming
+     * @return true if a dialogue is present, false otherwise
+     */
+    public static boolean inDialogue()
+    {
+        return dialoguePresent();
+    }
+
+    /**
+     * Checks if the dialogue can be continued (continue button is available)
+     * @return true if dialogue can be continued, false otherwise
+     */
+    public static boolean canContinue()
+    {
+        return dialoguePresent() && !isViewingOptions();
+    }
+
+    /**
+     * Alias for isViewingOptions() to match DreamBot style naming
+     * @return true if dialogue options are available, false otherwise
+     */
+    public static boolean hasOptions()
+    {
+        return isViewingOptions();
+    }
+
+    /**
+     * Completes the current dialogue by continuing through until no more dialogue is present
+     * @return true if dialogue was completed, false if no dialogue was present
+     */
+    public static boolean completeDialogue()
+    {
+        if (!dialoguePresent())
+        {
+            return false;
+        }
+        
+        int iterations = 0;
+        while (dialoguePresent() && iterations < MAX_DIALOGUE_ITERATIONS)
+        {
+            if (isViewingOptions())
+            {
+                // Can't auto-complete if options are present
+                return false;
+            }
+            continueDialogue();
+            iterations++;
+            // Wait one game tick between dialogue continues to avoid tight-looping
+            // and allow the game state to update
+            Delays.tick();
+        }
         return true;
     }
 }

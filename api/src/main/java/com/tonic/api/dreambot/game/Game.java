@@ -1,6 +1,9 @@
 package com.tonic.api.dreambot.game;
 
+import com.tonic.Static;
 import com.tonic.api.game.GameAPI;
+import com.tonic.data.wrappers.PlayerEx;
+import net.runelite.api.Client;
 
 /**
  * DreamBot-style Game API wrapper for VitaLite
@@ -69,7 +72,8 @@ public class Game {
      * @return Current world number
      */
     public static int getCurrentWorld() {
-        return com.tonic.Static.getClient().getWorld();
+        Client client = Static.getClient();
+        return Static.invoke(client::getWorld);
     }
 
     /**
@@ -77,7 +81,8 @@ public class Game {
      * @return Game tick count
      */
     public static int getGameTick() {
-        return com.tonic.Static.getClient().getTickCount();
+        Client client = Static.getClient();
+        return Static.invoke(client::getTickCount);
     }
 
     /**
@@ -85,10 +90,8 @@ public class Game {
      * @return Player username or null if not logged in
      */
     public static String getUsername() {
-        return com.tonic.Static.invoke(() -> {
-            var player = com.tonic.Static.getClient().getLocalPlayer();
-            return player != null ? player.getName() : null;
-        });
+        PlayerEx local = PlayerEx.getLocal();
+        return local != null ? local.getName() : null;
     }
 
     /**
@@ -96,6 +99,7 @@ public class Game {
      * @return Current frames per second
      */
     public static int getFPS() {
-        return com.tonic.Static.getClient().getFPS();
+        Client client = Static.getClient();
+        return Static.invoke(client::getFPS);
     }
 }

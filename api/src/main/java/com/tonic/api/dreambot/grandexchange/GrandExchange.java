@@ -55,7 +55,7 @@ public class GrandExchange {
      * Collects all completed offers
      */
     public static void collect() {
-        GrandExchangeAPI.collect();
+        GrandExchangeAPI.collectAll();
     }
 
     /**
@@ -88,6 +88,6 @@ public class GrandExchange {
      * @return Empty slot index or -1 if no empty slots
      */
     public static int getFirstEmptySlot() {
-        return GrandExchangeAPI.getFirstEmptySlot();
+        return GrandExchangeAPI.freeSlot();
     }
 }

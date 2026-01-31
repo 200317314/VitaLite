@@ -182,6 +182,6 @@ public class Players {
      * @return Current world point
      */
     public static WorldPoint getLocation() {
-        return getLocal().getWorldLocation();
+        return getLocal().getWorldPoint();
     }
 }

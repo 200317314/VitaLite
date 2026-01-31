@@ -4,6 +4,8 @@ import com.tonic.Static;
 import com.tonic.api.widgets.WidgetAPI;
 import com.tonic.data.AttackStyle;
 import com.tonic.data.LayoutView;
+import com.tonic.data.wrappers.ActorEx;
+import com.tonic.data.wrappers.PlayerEx;
 import net.runelite.api.Client;
 import net.runelite.api.Skill;
 import net.runelite.api.gameval.InterfaceID;
@@ -207,5 +209,98 @@ public class CombatAPI
      */
     public static boolean isInPvpArea() {
         return VarAPI.getVar(VarbitID.PVP_AREA_CLIENT) == 1 || VarAPI.getVar(VarbitID.PVP_ADJACENT_AREA_CLIENT) == 1;
+    }
+
+    /**
+     * Checks if the local player is currently in combat
+     * @return true if the player is in combat, false otherwise
+     */
+    public static boolean isInCombat()
+    {
+        PlayerEx local = PlayerEx.getLocal();
+        if (local == null)
+        {
+            return false;
+        }
+        return local.getInteracting() != null || local.healthBarVisible();
+    }
+
+    /**
+     * Checks if the local player is under attack
+     * @return true if the player is under attack, false otherwise
+     */
+    public static boolean isUnderAttack()
+    {
+        PlayerEx local = PlayerEx.getLocal();
+        if (local == null)
+        {
+            return false;
+        }
+        return local.getInCombatWith() != null;
+    }
+
+    /**
+     * Gets the actor the local player is currently targeting
+     * @return the target actor, or null if not targeting anything
+     */
+    public static ActorEx<?> getTarget()
+    {
+        PlayerEx local = PlayerEx.getLocal();
+        if (local == null)
+        {
+            return null;
+        }
+        return local.getInteracting();
+    }
+
+    /**
+     * Gets the actor that is attacking the local player
+     * @return the attacker, or null if not under attack
+     */
+    public static ActorEx<?> getAttacker()
+    {
+        PlayerEx local = PlayerEx.getLocal();
+        if (local == null)
+        {
+            return null;
+        }
+        return local.getInCombatWith();
+    }
+
+    /**
+     * Checks if auto-retaliate is enabled
+     * @return true if auto-retaliate is enabled
+     */
+    public static boolean isAutoRetaliateEnabled()
+    {
+        return isRetaliating();
+    }
+
+    /**
+     * Gets the special attack energy percentage
+     * @return the special attack energy (0-100)
+     */
+    public static int getSpecialAttackEnergy()
+    {
+        return getSpecEnergy();
+    }
+
+    /**
+     * Checks if special attack is enabled
+     * @return true if special attack is enabled
+     */
+    public static boolean isSpecialAttackEnabled()
+    {
+        return isSpecEnabled();
+    }
+
+    /**
+     * Gets the wilderness level at the player's current location
+     * @return the wilderness level, or -1 if not in wilderness
+     */
+    public static int getWildernessLevel()
+    {
+        int level = GameAPI.getWildyLevel();
+        return level > 0 ? level : -1;
     }
 }

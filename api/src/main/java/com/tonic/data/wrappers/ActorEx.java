@@ -75,6 +75,24 @@ public abstract class ActorEx<T extends Actor> implements Entity
         return (actor.getIdlePoseAnimation() == actor.getPoseAnimation() && actor.getAnimation() == -1);
     }
 
+    /**
+     * Check if the actor is animating (performing an animation)
+     * @return true if animating
+     */
+    public boolean isAnimating()
+    {
+        return Static.invoke(() -> actor.getAnimation() != -1);
+    }
+
+    /**
+     * Check if the actor is moving (has a path length > 0)
+     * @return true if moving
+     */
+    public boolean isMoving()
+    {
+        return Static.invoke(() -> actor.getPathLength() > 0);
+    }
+
     public boolean isDead()
     {
         return Static.invoke(actor::isDead);

@@ -513,4 +513,13 @@ public class ShopAPI
     {
         WidgetAPI.interact(action, InterfaceID.Shopside.ITEMS, slot, itemId);
     }
+
+    /**
+     * Get all items currently in the shop
+     * @return List of shop items
+     */
+    public static java.util.List<ItemEx> getShopItems()
+    {
+        return InventoryQuery.fromCurrentShop().collect();
+    }
 }

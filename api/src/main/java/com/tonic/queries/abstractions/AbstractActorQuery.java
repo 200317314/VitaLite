@@ -39,6 +39,25 @@ public abstract class AbstractActorQuery<T extends ActorEx<?>, Q extends Abstrac
     }
 
     /**
+     * filter by multiple names
+     * @param names actor names
+     * @return ActorQuery
+     */
+    public Q withNames(String... names)
+    {
+        return keepIf(o -> {
+            String actorName = TextUtil.sanitize(o.getName());
+            if (actorName == null) return false;
+            for (String name : names) {
+                if (name.equalsIgnoreCase(actorName)) {
+                    return true;
+                }
+            }
+            return false;
+        });
+    }
+
+    /**
      * filter to npcs the player can attack
      * @return ActorQuery
      */
@@ -93,6 +112,15 @@ public abstract class AbstractActorQuery<T extends ActorEx<?>, Q extends Abstrac
      */
     public Q within(int distance) {
         return keepIf(o -> Distance.chebyshev(PlayerEx.getLocal().getWorldPoint(), o.getWorldPoint()) <= distance);
+    }
+
+    /**
+     * Alias for within() to match DreamBot style naming
+     * @param distance distance
+     * @return ActorQuery
+     */
+    public Q withinDistance(int distance) {
+        return within(distance);
     }
 
     /**

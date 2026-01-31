@@ -388,6 +388,42 @@ public class GrandExchangeAPI
         WidgetAPI.interact(1, InterfaceID.GeOffers.COLLECTALL, 0, -1);
     }
 
+    /**
+     * Checks if an offer is complete for the specified item
+     * @param itemId The item ID to check
+     * @return true if offer is complete, false otherwise
+     */
+    public static boolean isOfferComplete(int itemId)
+    {
+        try
+        {
+            Client client = Static.getClient();
+            GrandExchangeOffer[] offers = Static.invoke(client::getGrandExchangeOffers);
+
+            if (offers == null)
+            {
+                return false;
+            }
+
+            for (GrandExchangeOffer offer : offers)
+            {
+                if (offer != null && offer.getItemId() == itemId)
+                {
+                    GrandExchangeOfferState state = offer.getState();
+                    return state == GrandExchangeOfferState.BOUGHT ||
+                           state == GrandExchangeOfferState.SOLD ||
+                           state == GrandExchangeOfferState.CANCELLED_BUY ||
+                           state == GrandExchangeOfferState.CANCELLED_SELL;
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            Logger.error(e);
+        }
+        return false;
+    }
+
     private static boolean isOfferDetailsOpenForItem(int itemId)
     {
         Client client = Static.getClient();
