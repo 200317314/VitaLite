@@ -11,6 +11,23 @@ import java.util.function.Predicate;
 /**
  * DreamBot-style GameObject API wrapper for VitaLite
  * Provides convenient methods for interacting with game objects similar to DreamBot's API
+ * 
+ * <p><b>Thread Safety:</b> All interact methods are thread-safe. They delegate to
+ * VitaLite's native {@link TileObjectAPI} which uses {@code Static.invoke()} to ensure
+ * actions are executed on the game client thread. You can safely call these methods
+ * from any thread without additional synchronization.</p>
+ * 
+ * <p><b>Example Usage:</b></p>
+ * <pre>{@code
+ * // Simple one-liner interaction
+ * GameObjects.interact("Door", "Open");
+ * 
+ * // Find then interact pattern
+ * TileObjectEx tree = GameObjects.closest("Tree");
+ * if (tree != null) {
+ *     GameObjects.interact(tree, "Chop down");
+ * }
+ * }</pre>
  */
 public class GameObjects {
 
@@ -133,6 +150,8 @@ public class GameObjects {
 
     /**
      * Interacts with a game object using the given action
+     * <p>This method is thread-safe and delegates to {@link TileObjectAPI#interact(TileObjectEx, String...)}
+     * which uses {@code Static.invoke()} to execute on the client thread.</p>
      * @param object Game object to interact with
      * @param action Action to perform
      * @return true if interaction was initiated

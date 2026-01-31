@@ -13,6 +13,19 @@ import com.tonic.api.dreambot.npc.NPCs;
  * It allows users familiar with DreamBot to easily transition to VitaLite by providing similar
  * method signatures and naming conventions.
  * 
+ * <h2>Thread Safety:</h2>
+ * <p>
+ * All interact methods in this API are thread-safe and automatically executed on the game client thread
+ * using VitaLite's {@code Static.invoke()} mechanism. This means you can safely call these methods from
+ * any thread (including script threads, event handlers, or UI threads) without worrying about threading
+ * issues. The API handles all thread synchronization internally.
+ * </p>
+ * <p>
+ * Example: When you call {@code NPCs.interact("Banker", "Bank")}, the wrapper internally delegates to
+ * {@code NpcAPI.interact()}, which wraps the packet writing in {@code Static.invoke()} to ensure it
+ * runs on the client thread. This follows the RuneLite/OSRS bot development pattern for safe interaction.
+ * </p>
+ * 
  * <h2>Main API Classes:</h2>
  * <ul>
  *   <li>{@link NPCs} - Methods for interacting with NPCs</li>
