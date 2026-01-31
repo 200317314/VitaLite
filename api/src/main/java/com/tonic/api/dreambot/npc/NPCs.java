@@ -54,7 +54,7 @@ public class NPCs {
      * @return List of NPCs with matching names
      */
     public static List<NpcEx> getAll(String... names) {
-        return NpcAPI.search().withName(names).collect();
+        return NpcAPI.search().withNames(names).collect();
     }
 
     /**
@@ -63,7 +63,7 @@ public class NPCs {
      * @return List of NPCs with matching IDs
      */
     public static List<NpcEx> getAll(int... ids) {
-        return NpcAPI.search().withId(ids).collect();
+        return NpcAPI.search().withIds(ids).collect();
     }
 
     /**
@@ -89,7 +89,7 @@ public class NPCs {
      * @return Closest matching NPC or null if none found
      */
     public static NpcEx closest(String... names) {
-        return NpcAPI.search().withName(names).sortNearest().first();
+        return NpcAPI.search().withNames(names).sortNearest().first();
     }
 
     /**
@@ -98,7 +98,7 @@ public class NPCs {
      * @return Closest matching NPC or null if none found
      */
     public static NpcEx closest(int... ids) {
-        return NpcAPI.search().withId(ids).sortNearest().first();
+        return NpcAPI.search().withIds(ids).sortNearest().first();
     }
 
     /**
