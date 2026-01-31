@@ -2,6 +2,23 @@
 
 This guide explains how to use the DreamBot-style API wrapper in your VitaLite plugins or scripts.
 
+## 🔒 Thread Safety (Important!)
+
+**All interact methods are automatically thread-safe.** You don't need to worry about threading when using the DreamBot API wrapper.
+
+The wrapper delegates to VitaLite's native APIs which use `Static.invoke()` to ensure all game actions execute on the client thread. This means:
+
+- ✅ Call interact methods from any thread (script threads, event handlers, UI threads)
+- ✅ No need to manually wrap calls in `Static.invoke()` or `ClientThread.invoke()`  
+- ✅ No threading issues or race conditions
+
+```java
+// All thread-safe - call from anywhere:
+NPCs.interact("Banker", "Bank");
+GameObjects.interact("Door", "Open");
+Inventory.interact("Logs", "Drop");
+```
+
 ## Quick Start
 
 ### Import the APIs you need

@@ -276,3 +276,43 @@ This wrapper is built on top of VitaLite's existing APIs:
 - `GroundItems` wraps `TileItemAPI`
 
 The wrapper maintains a thin layer that translates DreamBot-style method calls into VitaLite API calls, making it easy to maintain and extend.
+
+## Thread Safety
+
+**All interact methods in the DreamBot API wrapper are thread-safe.**
+
+The wrapper delegates to VitaLite's native APIs, which use `Static.invoke()` to ensure all game actions are executed on the proper client thread. This follows the RuneLite/OSRS bot development pattern for safe interaction.
+
+### How it works:
+
+1. When you call `NPCs.interact("Banker", "Bank")`, the wrapper delegates to `NpcAPI.interact()`
+2. `NpcAPI.interact()` wraps the packet writing in `Static.invoke()`:
+   ```java
+   Static.invoke(() -> {
+       ClickManager.click(ClickType.ACTOR);
+       client.getPacketWriter().npcActionPacket(option, npcIndex, false);
+   });
+   ```
+3. `Static.invoke()` checks if the current thread is the client thread:
+   - If yes: executes immediately
+   - If no: schedules execution on the client thread and waits for completion
+
+### What this means for you:
+
+- ✅ You can safely call interact methods from any thread (script threads, event handlers, UI threads)
+- ✅ No need to manually wrap calls in `Static.invoke()` or `ClientThread.invoke()`
+- ✅ Thread synchronization is handled automatically
+- ✅ No race conditions or threading issues when interacting with game entities
+
+### Example:
+
+```java
+// All of these are thread-safe, regardless of which thread you're on:
+NPCs.interact("Banker", "Bank");              // Thread-safe ✅
+GameObjects.interact("Door", "Open");         // Thread-safe ✅  
+Inventory.interact("Logs", "Drop");           // Thread-safe ✅
+GroundItems.take("Coins");                    // Thread-safe ✅
+Bank.withdraw("Logs", 28);                    // Thread-safe ✅
+```
+
+For more detailed examples of thread safety, see `examples/ThreadSafetyExample.java`.

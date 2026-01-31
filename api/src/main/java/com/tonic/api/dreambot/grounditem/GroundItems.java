@@ -11,6 +11,23 @@ import java.util.function.Predicate;
 /**
  * DreamBot-style GroundItems API wrapper for VitaLite
  * Provides convenient methods for interacting with ground items similar to DreamBot's API
+ * 
+ * <p><b>Thread Safety:</b> All interact methods are thread-safe. They delegate to
+ * VitaLite's native {@link TileItemAPI} which uses {@code Static.invoke()} to ensure
+ * actions are executed on the game client thread. You can safely call these methods
+ * from any thread without additional synchronization.</p>
+ * 
+ * <p><b>Example Usage:</b></p>
+ * <pre>{@code
+ * // Simple one-liner interaction
+ * GroundItems.take("Coins");
+ * 
+ * // Find then interact pattern
+ * TileItemEx loot = GroundItems.closest("Dragon bones");
+ * if (loot != null) {
+ *     GroundItems.take(loot);
+ * }
+ * }</pre>
  */
 public class GroundItems {
 
@@ -133,6 +150,8 @@ public class GroundItems {
 
     /**
      * Interacts with a ground item using the given action
+     * <p>This method is thread-safe and delegates to {@link TileItemAPI#interact(TileItemEx, String...)}
+     * which uses {@code Static.invoke()} to execute on the client thread.</p>
      * @param item Ground item to interact with
      * @param action Action to perform
      * @return true if interaction was initiated

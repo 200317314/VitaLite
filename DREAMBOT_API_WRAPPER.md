@@ -103,6 +103,7 @@ GroundItems.take("Coins");
 ✅ **Type Safe** - Uses VitaLite's strong typing with Ex wrapper classes  
 ✅ **Thin Wrapper** - Delegates to existing VitaLite APIs for reliability  
 ✅ **Query Support** - Full access to VitaLite's powerful query system  
+✅ **Thread Safe** - All interact methods use `Static.invoke()` for safe execution on client thread  
 
 ## 📖 Documentation Structure
 
@@ -198,6 +199,32 @@ var items = GroundItems.query()
 - The wrapper maintains compatibility with VitaLite's architecture
 - Uses VitaLite's Ex wrapper classes (NpcEx, TileObjectEx, etc.)
 - Query methods provide access to VitaLite's full filtering capabilities
+
+## 🔒 Thread Safety
+
+**All interact methods in the DreamBot API wrapper are automatically thread-safe.**
+
+The wrapper delegates to VitaLite's native APIs (NpcAPI, TileObjectAPI, InventoryAPI, etc.), which use `Static.invoke()` to ensure all game actions are executed on the proper client thread. This is crucial for RuneLite/OSRS bot development to avoid threading issues.
+
+### How it Works:
+
+When you call any interact method like `NPCs.interact("Banker", "Bank")`:
+1. The wrapper delegates to `NpcAPI.interact()`
+2. `NpcAPI.interact()` wraps the action in `Static.invoke()`:
+   ```java
+   Static.invoke(() -> {
+       ClickManager.click(ClickType.ACTOR);
+       client.getPacketWriter().npcActionPacket(option, npcIndex, false);
+   });
+   ```
+3. `Static.invoke()` ensures execution on the client thread
+
+### Benefits:
+
+- ✅ Call interact methods from any thread safely (script threads, event handlers, UI threads)
+- ✅ No need to manually wrap calls in `Static.invoke()` or `ClientThread.invoke()`
+- ✅ Automatic thread synchronization
+- ✅ No race conditions or threading issues
 
 ## 🤝 Contributing
 

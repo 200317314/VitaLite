@@ -14,6 +14,24 @@ import java.util.function.Predicate;
 /**
  * DreamBot-style Inventory API wrapper for VitaLite
  * Provides convenient methods for interacting with inventory items similar to DreamBot's API
+ * 
+ * <p><b>Thread Safety:</b> All interact methods are thread-safe. They delegate to
+ * VitaLite's native {@link InventoryAPI} which uses {@code Static.invoke()} via {@link WidgetAPI}
+ * to ensure actions are executed on the game client thread. You can safely call these methods
+ * from any thread without additional synchronization.</p>
+ * 
+ * <p><b>Example Usage:</b></p>
+ * <pre>{@code
+ * // Check and interact with items
+ * if (Inventory.contains("Logs")) {
+ *     Inventory.interact("Logs", "Drop");
+ * }
+ * 
+ * // Use item on another item
+ * ItemEx knife = Inventory.getItem("Knife");
+ * ItemEx logs = Inventory.getItem("Logs");
+ * Inventory.useItemOn(knife, logs);
+ * }</pre>
  */
 public class Inventory {
 
@@ -195,6 +213,8 @@ public class Inventory {
 
     /**
      * Interacts with an item using the given action
+     * <p>This method is thread-safe and delegates to {@link InventoryAPI#interact(ItemEx, String)}
+     * which uses {@code Static.invoke()} via {@link WidgetAPI} to execute on the client thread.</p>
      * @param item Item to interact with
      * @param action Action to perform
      * @return true if interaction was initiated

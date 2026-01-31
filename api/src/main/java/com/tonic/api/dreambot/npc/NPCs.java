@@ -11,6 +11,23 @@ import java.util.function.Predicate;
 /**
  * DreamBot-style NPC API wrapper for VitaLite
  * Provides convenient methods for interacting with NPCs similar to DreamBot's API
+ * 
+ * <p><b>Thread Safety:</b> All interact methods are thread-safe. They delegate to
+ * VitaLite's native {@link NpcAPI} which uses {@code Static.invoke()} to ensure
+ * actions are executed on the game client thread. You can safely call these methods
+ * from any thread without additional synchronization.</p>
+ * 
+ * <p><b>Example Usage:</b></p>
+ * <pre>{@code
+ * // Simple one-liner interaction
+ * NPCs.interact("Banker", "Bank");
+ * 
+ * // Find then interact pattern
+ * NpcEx banker = NPCs.closest("Banker");
+ * if (banker != null) {
+ *     NPCs.interact(banker, "Bank");
+ * }
+ * }</pre>
  */
 public class NPCs {
 
@@ -113,6 +130,8 @@ public class NPCs {
 
     /**
      * Interacts with an NPC using the given action
+     * <p>This method is thread-safe and delegates to {@link NpcAPI#interact(NpcEx, String...)}
+     * which uses {@code Static.invoke()} to execute on the client thread.</p>
      * @param npc NPC to interact with
      * @param action Action to perform
      * @return true if interaction was initiated
