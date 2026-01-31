@@ -257,9 +257,13 @@ public class ProfilesRootPanel extends PluginPanel {
                 } catch (Exception e) {
                     log.error("Failed to authenticate Jagex account", e);
                     SwingUtilities.invokeLater(() -> {
+                        String message = "Failed to authenticate Jagex account.";
+                        if (e.getMessage() != null && !e.getMessage().isEmpty()) {
+                            message += "\n" + e.getMessage();
+                        }
                         JOptionPane.showMessageDialog(
                             ProfilesRootPanel.this,
-                            "Failed to authenticate Jagex account: " + e.getMessage(),
+                            message,
                             "Authentication Error",
                             JOptionPane.ERROR_MESSAGE
                         );
