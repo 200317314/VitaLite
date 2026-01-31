@@ -255,7 +255,15 @@ public class ProfilesRootPanel extends PluginPanel {
                     CompletableFuture<JagLoginToken> loginToken = auth.requestLoginToken();
                     onTokenReceived(loginToken.get(2, TimeUnit.MINUTES), auth);
                 } catch (Exception e) {
-//                    e.printStackTrace();
+                    log.error("Failed to authenticate Jagex account", e);
+                    SwingUtilities.invokeLater(() -> {
+                        JOptionPane.showMessageDialog(
+                            ProfilesRootPanel.this,
+                            "Failed to authenticate Jagex account: " + e.getMessage(),
+                            "Authentication Error",
+                            JOptionPane.ERROR_MESSAGE
+                        );
+                    });
                 }
             }).start();
         });
