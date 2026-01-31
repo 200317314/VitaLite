@@ -155,6 +155,20 @@ tasks {
             isInApiPackage && path !in whitelist
         }
 
+        // Exclude development-only components
+        exclude("com/tonic/services/profiler/**")
+        exclude("com/tonic/services/pathfinder/ui/**")
+        exclude("com/tonic/services/mouserecorder/**")
+        exclude("com/tonic/services/hotswapper/**")
+        exclude("com/tonic/services/ipc/**")
+        exclude("com/tonic/model/ui/DistanceDebugger.class")
+        exclude("com/tonic/injector/**")
+        exclude("com/tonic/mixin/**")
+        exclude("com/tonic/rlmixin/**")
+        exclude("com/tonic/patch/PatchGenerator.class")
+        exclude("**/mappings.json")
+        exclude("com/tonic/plugins/codeeval/**")
+
         transform(com.github.jengelman.gradle.plugins.shadow.transformers.AppendingTransformer::class.java) {
             resource = "META-INF/services/javax.swing.LookAndFeel"
         }
@@ -240,11 +254,7 @@ dependencies {
     implementation("org.jboss.aerogear:aerogear-otp-java:1.0.0")
     implementation("com.apple:AppleJavaExtensions:1.4")
 
-    implementation(group = "com.fifesoft", name = "rsyntaxtextarea", version = "3.1.2")
-    implementation(group = "com.fifesoft", name = "autocomplete", version = "3.1.1")
     implementation("io.sigpipe:jbsdiff:1.0")
-
-    implementation("com.github.javaparser:javaparser-symbol-solver-core:3.25.5")
 }
 
 tasks.test {
@@ -293,12 +303,19 @@ tasks.register<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar>("shad
         isInApiPackage && path !in whitelist
     }
 
+    // Exclude development-only components
     exclude("com/tonic/services/profiler/**")
     exclude("com/tonic/services/pathfinder/ui/**")
+    exclude("com/tonic/services/mouserecorder/**")
+    exclude("com/tonic/services/hotswapper/**")
+    exclude("com/tonic/services/ipc/**")
+    exclude("com/tonic/model/ui/DistanceDebugger.class")
     exclude("com/tonic/injector/**")
     exclude("com/tonic/mixin/**")
     exclude("com/tonic/rlmixin/**")
+    exclude("com/tonic/patch/PatchGenerator.class")
     exclude("**/mappings.json")
+    exclude("com/tonic/plugins/codeeval/**")
 
     transform(com.github.jengelman.gradle.plugins.shadow.transformers.AppendingTransformer::class.java) {
         resource = "META-INF/services/javax.swing.LookAndFeel"
